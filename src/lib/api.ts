@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://4tc7c6qt.up.railway.app/api"
+export const API_BASE_URL = "https://1f70.up.railway.app/api"
 
 export async function apiFetch<T>(
     endpoint: string,
