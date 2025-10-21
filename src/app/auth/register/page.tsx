@@ -12,7 +12,7 @@ export default function LoginPage() {
     const [statusMessage, setStatusMessage] = useState<string|null>(null);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    async function handleLogin(e: React.FormEvent) {
+    async function handleRegister(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
         setStatusMessage(null);
@@ -42,7 +42,7 @@ export default function LoginPage() {
                     Welcome Back
                 </h1>
 
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleRegister} className="space-y-4">
                     <div>
                         <label className="block text-sm text-[#5A5A5A] mb-1">Email</label>
                         <input
@@ -96,7 +96,7 @@ export default function LoginPage() {
                         disabled={loading}
                         className="w-full py-3 bg-[#A67B5B] text-white rounded-md hover:bg-[#8E6A4F] transition-all duration-200 shadow-sm disabled:opacity-50"
                     >
-                        {loading ? 'Signing in...' : 'Login'}
+                        {loading ? 'Signing in...' : 'Register'}
                     </button>
                 </form>
 
