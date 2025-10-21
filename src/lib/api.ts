@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://c1e4.up.railway.app/api"
+export const API_BASE_URL = "https://api-auth-production-c1e4.up.railway.app/api"
 
 export async function apiFetch<T>(
     endpoint: string,
