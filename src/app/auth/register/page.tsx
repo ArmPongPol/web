@@ -9,7 +9,7 @@ export default function LoginPage() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [loading, setLoading] = useState(false);
-    const [statusMessage, setStatusMessage] = useState<string|null|unknown>(null);
+    const [statusMessage, setStatusMessage] = useState<string|null>(null);
     const [isSuccess, setIsSuccess] = useState(false);
 
     async function handleLogin(e: React.FormEvent) {
@@ -29,7 +29,7 @@ export default function LoginPage() {
         } catch (err) {
             // ถ้า login ล้มเหลว
             setIsSuccess(false);
-            setStatusMessage(err.message);
+            setStatusMessage("เกิดข้อผิดพลาด");
         } finally {
             setLoading(false);
         }
