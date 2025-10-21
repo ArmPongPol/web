@@ -15,8 +15,8 @@ export default function Navbar() {
                 <Link href="/about" className="text-[#5A5A5A] hover:text-[#A67B5B] transition-colors">
                     About
                 </Link>
-                <Link href="/auth/register" className="text-[#5A5A5A] hover:text-[#A67B5B] transition-colors">
-                    Register
+                <Link href="/contact" className="text-[#5A5A5A] hover:text-[#A67B5B] transition-colors">
+                    Contact
                 </Link>
 
                 <Link
