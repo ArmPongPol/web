@@ -20,7 +20,7 @@ export default function LoginPage() {
         try {
             const res = await apiFetch('/auth/register', {
                 method: 'POST',
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password, firstName, lastName }),
             });
 
             // ถ้า login สำเร็จ
@@ -70,7 +70,7 @@ export default function LoginPage() {
                     <div>
                         <label className="block text-sm text-[#5A5A5A] mb-1">First Name</label>
                         <input
-                            type="password"
+                            type="text"
                             required
                             className="w-full p-3 border border-[#E0D9CF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#A67B5B] bg-[#FCFAF8]"
                             value={firstName}
@@ -82,7 +82,7 @@ export default function LoginPage() {
                     <div>
                         <label className="block text-sm text-[#5A5A5A] mb-1">Last Name</label>
                         <input
-                            type="password"
+                            type="text"
                             required
                             className="w-full p-3 border border-[#E0D9CF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#A67B5B] bg-[#FCFAF8]"
                             value={lastName}
