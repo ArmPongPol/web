@@ -1,23 +1,30 @@
 // app/auth/login/page.tsx
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import LoginForm from './LoginForm'
 
-export const dynamic = 'force-dynamic' // ให้ Next.js ทำ SSR ทุกครั้ง (ไม่ cache)
+export const dynamic = 'force-dynamic' // ให้ SSR ทุกครั้ง (ไม่ cache)
 
 export default async function LoginPage() {
-    // 👇 ตัวอย่าง SSR: ดึงข้อมูลจาก server ก่อน render ได้
-    // เช่น ตรวจว่าผู้ใช้ login แล้วหรือยัง
-    // const res = await fetch(`${process.env.API_URL}/auth/check`, { cache: 'no-store' })
-    // const { isLoggedIn } = await res.json()
-    //
-    // if (isLoggedIn) {
-    //     // redirect ฝั่ง server ได้เลย
-    //     return (
-    //         <div className="flex h-screen items-center justify-center">
-    //             <p>คุณเข้าสู่ระบบแล้ว 🎉</p>
-    //         </div>
-    //     )
-    // }
+    // ✅ ตรวจว่ามี token แล้วไหม (เช่น JWT ที่เก็บใน cookie)
+    const cookieStore = await cookies()
+    const token = cookieStore.get('access_token')?.value
 
-    // ถ้ายังไม่ login -> render form (Client Component)
-    return <LoginForm />
+    if (token) {
+        // ถ้ามี token แปลว่า login แล้ว → redirect ไป dashboard
+        redirect('/dashboard')
+    }
+
+    // ❌ ถ้าไม่มี token → แสดงหน้า login
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-[#FAF8F4] text-black">
+            <div className="w-full max-w-sm p-8 bg-white/70 backdrop-blur-sm rounded-2xl shadow-md border border-[#E8E2D9]">
+                <h1 className="text-2xl font-semibold text-[#3F3F3F] mb-6 text-center">
+                    Welcome Back
+                </h1>
+
+                <LoginForm />
+            </div>
+        </div>
+    )
 }
