@@ -11,7 +11,7 @@ export default function Home() {
                     สำหรับนักเขียนและนักอ่านที่รักในตัวอักษรและความสงบ
                 </p>
                 <a
-                    href="/auth/login"
+                    href="/src/app/auth/login"
                     className="px-8 py-3 bg-[#A67B5B] text-white rounded-md hover:bg-[#8E6A4F] transition-all duration-200 shadow-sm"
                 >
                     เริ่มต้นเขียนเลย
@@ -58,7 +58,7 @@ export default function Home() {
                     สร้างบัญชีฟรีและเริ่มต้นบทความแรกของคุณวันนี้
                 </p>
                 <a
-                    href="/auth/register"
+                    href="/src/app/auth/register"
                     className="px-8 py-3 bg-[#A67B5B] text-white rounded-md hover:bg-[#8E6A4F] transition-all duration-200 shadow-sm"
                 >
                     สร้างบัญชีใหม่

@@ -1,97 +1,23 @@
-'use client';
+// app/auth/login/page.tsx
+import LoginForm from './LoginForm'
 
-import { useState } from 'react';
-import { apiFetch } from '@/lib/api';
+export const dynamic = 'force-dynamic' // ให้ Next.js ทำ SSR ทุกครั้ง (ไม่ cache)
 
-export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [statusMessage, setStatusMessage] = useState<string | null>(null);
-    const [isSuccess, setIsSuccess] = useState(false);
+export default async function LoginPage() {
+    // 👇 ตัวอย่าง SSR: ดึงข้อมูลจาก server ก่อน render ได้
+    // เช่น ตรวจว่าผู้ใช้ login แล้วหรือยัง
+    // const res = await fetch(`${process.env.API_URL}/auth/check`, { cache: 'no-store' })
+    // const { isLoggedIn } = await res.json()
+    //
+    // if (isLoggedIn) {
+    //     // redirect ฝั่ง server ได้เลย
+    //     return (
+    //         <div className="flex h-screen items-center justify-center">
+    //             <p>คุณเข้าสู่ระบบแล้ว 🎉</p>
+    //         </div>
+    //     )
+    // }
 
-    async function handleLogin(e: React.FormEvent) {
-        e.preventDefault();
-        setLoading(true);
-        setStatusMessage(null);
-
-        try {
-            const res = await apiFetch('/auth/login', {
-                method: 'POST',
-                body: JSON.stringify({ email, password }),
-            });
-
-            // ถ้า login สำเร็จ
-            setIsSuccess(true);
-            setStatusMessage('เข้าสู่ระบบสำเร็จ 🎉');
-        } catch (err) {
-            // ถ้า login ล้มเหลว
-            setIsSuccess(false);
-            setStatusMessage('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-[#FAF8F4] text-black">
-            <div className="w-full max-w-sm p-8 bg-white/70 backdrop-blur-sm rounded-2xl shadow-md border border-[#E8E2D9]">
-                <h1 className="text-2xl font-semibold text-[#3F3F3F] mb-6 text-center">
-                    Welcome Back
-                </h1>
-
-                <form onSubmit={handleLogin} className="space-y-4">
-                    <div>
-                        <label className="block text-sm text-[#5A5A5A] mb-1">Email</label>
-                        <input
-                            type="email"
-                            required
-                            className="w-full p-3 border border-[#E0D9CF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#A67B5B] bg-[#FCFAF8]"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="you@example.com"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm text-[#5A5A5A] mb-1">Password</label>
-                        <input
-                            type="password"
-                            required
-                            className="w-full p-3 border border-[#E0D9CF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#A67B5B] bg-[#FCFAF8]"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="••••••••"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full py-3 bg-[#A67B5B] text-white rounded-md hover:bg-[#8E6A4F] transition-all duration-200 shadow-sm disabled:opacity-50"
-                    >
-                        {loading ? 'Signing in...' : 'Login'}
-                    </button>
-                </form>
-
-                {/* ✅ แสดงข้อความสถานะ */}
-                {statusMessage && (
-                    <p
-                        className={`mt-4 text-center text-sm font-medium ${
-                            isSuccess ? 'text-green-600' : 'text-red-600'
-                        }`}
-                    >
-                        {statusMessage}
-                    </p>
-                )}
-
-                <p className="text-center text-sm text-[#7A7A7A] mt-6">
-                    Don’t have an account?{' '}
-                    <a href="/auth/register" className="text-[#A67B5B] hover:underline">
-                        Sign up
-                    </a>
-                </p>
-            </div>
-        </div>
-    );
+    // ถ้ายังไม่ login -> render form (Client Component)
+    return <LoginForm />
 }
